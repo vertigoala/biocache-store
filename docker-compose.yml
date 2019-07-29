@@ -1,0 +1,30 @@
+#
+# To use your own pub key:
+# export PUBLICKEY=`cat ~/.ssh/id_rsa.pub`
+#
+version: '3'
+
+services:
+
+  biocache-store:
+    build:
+      context: .
+    image: vertigoala/biocache-store
+    environment:
+      - BIOPWD=biocache
+#      - PUBLICKEY
+#      - USETTYD=true
+    ports:
+      - "2022:22"
+      - "7681:7681"
+    depends_on:
+      - cassandradb
+  cassandradb:
+    image: cassandra:3.11.4
+    volumes:
+      - ./conf/cassandra3_schema.txt:/docker-entrypoint-initdb.d/cassandra3-schema.cql
+      - ./scripts/cassandra-entrypoint.sh:/cassandra-entrypoint.sh
+    entrypoint: 
+      - bash
+      - -c
+      - source /cassandra-entrypoint.sh
