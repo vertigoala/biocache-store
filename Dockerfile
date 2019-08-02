@@ -38,7 +38,8 @@ ARG NAME_MATCHING_URL=https://s3.us-east-2.amazonaws.com/sibbr-ala/namematching.
 RUN wget "$NAME_MATCHING_URL" -q -O /opt/namematching.zip && \
     mkdir /data/lucene && \
     unzip /opt/namematching.zip -d /data/lucene && \
-	rm /opt/*.zip
+	rm /opt/*.zip && \
+	chown -R biocache:biocache /data
 
 # Install ttyd too
 RUN apk add --update ttyd
