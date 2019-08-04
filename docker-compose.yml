@@ -22,7 +22,7 @@ services:
   cassandradb:
     image: cassandra:3.11.4
     volumes:
-      - ./conf/cassandra3_schema.txt:/docker-entrypoint-initdb.d/cassandra3-schema.cql
+      - ./conf/cassandra3-schema.txt:/docker-entrypoint-initdb.d/cassandra3-schema.cql
       - ./scripts/cassandra-entrypoint.sh:/cassandra-entrypoint.sh
     entrypoint: 
       - bash

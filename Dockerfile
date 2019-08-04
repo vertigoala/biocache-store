@@ -39,6 +39,7 @@ RUN wget "$NAME_MATCHING_URL" -q -O /opt/namematching.zip && \
     mkdir /data/lucene && \
     unzip /opt/namematching.zip -d /data/lucene && \
 	rm /opt/*.zip && \
+    wget https://github.com/AtlasOfLivingAustralia/ala-install/raw/master/ansible/roles/biocache-properties/files/subgroups.json -q -O /data/biocache/config/subgroups.json && \
 	chown -R biocache:biocache /data
 
 # Install ttyd too
