@@ -13,6 +13,9 @@ RUN apk add --update dropbear tini curl tmux && \
 	echo "biocache:$BIOPWD" | chpasswd
 #	adduser -G biocache -G wheel -D biocache && \
 
+#ARG DIST_URL=https://nexus.ala.org.au/service/local/repositories/releases/content/au/org/ala/biocache-store/2.4.4/biocache-store-2.4.4-distribution.zip
+ARG DIST_URL=https://ala-rnp.s3.amazonaws.com/ala-assets/brasil/biocache-store-2.4.5-SNAPSHOT-distribution.zip
+ARG DIST_VERSION=biocache-store-2.4.5-SNAPSHOT
 # BIOCACHE CLI
 RUN mkdir -m 0774 -p \
 	/data/ala/layers/ready/shape \
@@ -24,9 +27,9 @@ RUN mkdir -m 0774 -p \
 	/data/tmp \
 	/data/offline/exports \
 	/data/tool
-RUN wget https://nexus.ala.org.au/service/local/repositories/releases/content/au/org/ala/biocache-store/2.4.4/biocache-store-2.4.4-distribution.zip -q -O /tmp/biocache.zip && \
+RUN wget "$DIST_URL" -q -O /tmp/biocache.zip && \
 	unzip /tmp/biocache.zip -d /usr/lib/ && \
-    mv /usr/lib/biocache-store-2.4.4 /usr/lib/biocache && \
+    mv "/usr/lib/$DIST_VERSION" /usr/lib/biocache && \
     ln -s /usr/lib/biocache/bin/biocache /usr/bin/biocache && \
 	rm /tmp/biocache.zip
 # DEFAULT PROPERTIES
