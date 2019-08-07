@@ -14,8 +14,9 @@ RUN apk add --update dropbear tini curl tmux && \
 #	adduser -G biocache -G wheel -D biocache && \
 
 #ARG DIST_URL=https://nexus.ala.org.au/service/local/repositories/releases/content/au/org/ala/biocache-store/2.4.4/biocache-store-2.4.4-distribution.zip
-#ARG DIST_URL=https://ala-rnp.s3.amazonaws.com/ala-assets/brasil/biocache-store-2.4.5-SNAPSHOT-distribution.zip
-ARG DIST_URL=http://68.183.146.85:6000/biocache-store/target/biocache-store-2.4.5-SNAPSHOT-distribution.zip
+# custom biocache build that solves apikey problems
+ARG DIST_URL=https://ala-rnp.s3.amazonaws.com/ala-assets/brasil/biocache-store-2.4.5-SNAPSHOT-distribution.zip
+#ARG DIST_URL=http://68.183.146.85:6000/biocache-store/target/biocache-store-2.4.5-SNAPSHOT-distribution.zip
 ARG DIST_VERSION=biocache-store-2.4.5-SNAPSHOT
 # BIOCACHE CLI
 RUN mkdir -m 0774 -p \
