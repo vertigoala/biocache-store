@@ -16,3 +16,4 @@ src/test/resources/solr/biocache/solr-create
 *-lock
 *-sorted
 pom.xml.versionsBackup
+.DS_Store

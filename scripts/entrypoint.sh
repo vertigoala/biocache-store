@@ -1,6 +1,9 @@
 #!/bin/ash
 
-echo "Starting dropbear SSHD..."
+echo "Waiting for Cassandra..." # TODO: change hard coded name
+/opt/wait-for-it.sh -h "cassandradb" -p 9042 -t 0 --strict -- echo "BIOCACHE ENTRYPOINT: cassandradb is up"
+
+echo "BIOCACHE ENTRYPOINT: fixing biocache user..."
 if [ ! -z "$BIOPWD" ]; then
     echo "biocache:$BIOPWD" | chpasswd
 fi
@@ -26,10 +29,11 @@ chown -R biocache:biocache /home/biocache/.ssh
 #fi
 
 if [ "$USETTYD" == "true" ]; then
-  echo "no sshd, just ttyd on 7671 port..."
+  echo "BIOCACHE ENTRYPOINT: opted out sshd, running ttyd on 7671 port..."
   exec su - biocache -c '/usr/bin/ttyd sh -c "cat /opt/welcome.txt; ash"'
 # no args --> default cmd
 elif [ $# -eq 0 ]; then
+    echo "BIOCACHE ENTRYPOINT: Starting dropbear SSHD..."
     exec /usr/sbin/dropbear -j -k -E -F -R $PUBARG
 else
     exec "$@"

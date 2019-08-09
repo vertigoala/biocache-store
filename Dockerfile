@@ -52,12 +52,13 @@ RUN apk add --update ttyd
 COPY ./scripts/welcome.txt /opt/
 
 # smart entrypoint
-COPY ./scripts/entrypoint.sh /opt/
-RUN chmod +x /opt/entrypoint.sh
+COPY ./scripts/*.sh /opt/
+RUN chmod +x /opt/*.sh
 
 
 ENTRYPOINT ["tini", "--","/opt/entrypoint.sh"]
 #ENTRYPOINT ["/opt/entrypoint.sh"]
 #CMD ["/usr/sbin/dropbear","-j","-k","-E","-F","-R","-s"]
 
-EXPOSE 22 7681
+# SSH=22, TTYD=7681, JAVA_DEBUG=5005
+EXPOSE 22 7681 5005
